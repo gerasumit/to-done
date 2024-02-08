@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+  
+  init() {
+    let navBarAppearance = UINavigationBarAppearance()
+    navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.gray]
+    navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.gray]
+    
+    UINavigationBar.appearance().standardAppearance = navBarAppearance
+    UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+  }
     var body: some View {
+      NavigationView {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+          MainListView()
         }
-        .padding()
+        .navigationTitle("To Done")
+      }
     }
 }
 
