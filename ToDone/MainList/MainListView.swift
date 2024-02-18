@@ -7,24 +7,39 @@
 
 import SwiftUI
 
-var items: [Item] = [
-  Item(id: "1", value: "Apples", status: .pending),
-  Item(id: "2", value: "Bananas", status: .pending),
-  Item(id: "3", value: "Oranges", status: .pending),
-  Item(id: "4", value: "Toothpaste", status: .pending),
-  Item(id: "5", value: "Brush", status: .pending),
-]
+var items: [Item] = []
 
 struct MainListView: View {
-    var body: some View {
+  @State private var newTask: String = ""
+  
+  
+  var body: some View {
+    VStack {
+      HStack {
+        TextField("Buying groceries...", text: $newTask)
+          .frame(minHeight: 64)
+          .textFieldStyle(RoundedBorderTextFieldStyle()).padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16))
+        Button("Add Item", action: addItem).buttonStyle(BorderedProminentButtonStyle())
+      }.padding()
       List(items) { item in
         ItemView(item: item)
       }.listStyle(.plain)
     }
+  }
+  
+  func addItem() {
+    let _task: String = newTask
+    newTask = ""
+    items.append(Item(id: _generateNewId(), value: _task, status: .pending))
+  }
+  
+  func _generateNewId() -> String {
+    return "\(items.count)"
+  }
 }
 
 struct MainListView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainListView()
-    }
+  static var previews: some View {
+    MainListView()
+  }
 }

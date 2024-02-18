@@ -8,10 +8,23 @@
 import SwiftUI
 
 struct ItemView: View {
-    let item: Item
-  
+    @State var item: Item
+
     var body: some View {
+      HStack {
+        RoundedRectangle(cornerRadius: 5.0)
+          .stroke(lineWidth: 2.0)
+          .frame(width: 24, height: 24)
+          .overlay {
+            item.status == .done ? Image(systemName: "checkmark") : nil
+          }
+          .onTapGesture {
+            withAnimation(.spring()) {
+              item.toggle()
+            }
+          }
         Text(item.value)
+      }
     }
 }
 

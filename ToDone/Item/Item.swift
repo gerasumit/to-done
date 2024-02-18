@@ -10,7 +10,11 @@ import Foundation
 struct Item: Identifiable {
   let id: String
   let value: String
-  let status: Item.Status
+  var status: Item.Status
+  
+  mutating func toggle() {
+    status = status == .pending ? .done : .pending
+  }
   
   enum Status {
     case pending
